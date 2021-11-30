@@ -21,13 +21,19 @@ int isEmpty()
     }
     return 0;
 }
-void display()
-{int i;        
-    for(i=front;i!=rear;i=(i+1)%n)
-    {
-        printf("%d\t",arr[i]);
+void display() {
+  int i;
+  if (isEmpty())
+    printf(" \n Empty Queue\n");
+  else {
+    printf("\n Front -> %d ", front);
+    printf("\n Items -> ");
+    for (i = front; i != rear; i = (i + 1) % n) {
+      printf("%d ", arr[i]);
     }
-    printf("%d",arr[i]);
+    printf("%d ", arr[i]);
+    printf("\n Rear -> %d \n", rear);
+  }
 }
 void enqueue(int x)
 {
