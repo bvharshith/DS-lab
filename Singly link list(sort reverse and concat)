@@ -1,0 +1,146 @@
+#include<stdio.h>   
+#include<stdlib.h>  
+struct node   
+{  
+    int data;   
+    struct node *next;  
+};  
+struct node *beginsert(struct node *head, int val)
+{
+    struct node *ptr=(struct node*)malloc(sizeof(struct node));
+    if(ptr==NULL)
+    {
+        printf("\n Overflow");
+    }
+    else
+    {
+        ptr->data=val;
+        ptr->next=head;
+        head=ptr;
+    }
+    printf("\n Node inserted ");
+    return head;
+}
+struct node *sortList(struct node *head)
+{
+    struct node *current=head,*index=NULL;
+    int temp;
+    if(head==NULL)
+    {
+        printf("Nothing to sort \n");
+    }
+    else
+    {
+        while(current !=NULL)
+        {
+            index=current->next;
+            while(index!=NULL)
+            {
+                if(current->data > index->data)
+                {
+                    temp=current->data;
+                    current->data=index->data;
+                    index->data=temp;
+                }
+                index=index->next;
+            }
+            current=current->next;
+        }
+    }
+    return head;
+}
+struct node*reverse(struct node *head)
+{
+    struct node *prev=NULL;
+    struct node *current=head;
+    struct node *next=NULL;
+    while(current!=NULL)
+    {
+        next=current->next;
+        current->next=prev;
+        prev=current;
+        current=next;
+    }
+    head=prev;
+    return head;
+}
+struct node *concat(struct node *start1, struct node *start2)
+{
+    struct node *ptr;
+    if(start1==NULL)
+    {
+        start1=start2;
+        return start1;
+    }
+    if(start2==NULL)
+    {
+        return start1;
+    }
+    ptr=start1;
+    while(ptr->next!=NULL)
+    {
+        ptr=ptr->next;
+    }
+    ptr->next=start2;
+    return start1;
+}
+void display(struct node *head)
+{
+    struct node *ptr;
+    ptr=head;
+    if(ptr==NULL)
+    {
+        printf("nothing to print");
+    }
+    else
+    {
+        printf("\n");
+        while(ptr!=NULL)
+        {
+            printf("%d \n", ptr->data);
+            ptr=ptr->next;
+        }
+    }
+}
+int main()
+{
+    struct node *head=NULL,*start1=NULL,*start2=NULL;
+    int choice,value,value1,value2;
+    while(choice!=8)
+    {
+        printf("Choose oone option from the list...\n");
+        printf("\n1.Insert \n2.Sort \n3.Reverse \n4.Insert at beginning of first list \n5.Insert at beginning oof second list \n6.Concatenate \n7.Display \n8.Exit");
+        printf("Enter the given choice: \n");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1:printf("Enter values: ");
+                   scanf("%d", &value);
+                   head=beginsert(head,value);
+                   break;
+            case 2:head=sortList(head);
+                   break;
+            case 3:head=reverse(head);
+                   break;
+            case 4:printf("enter the value to insert in first list: ");
+                   scanf("%d",&value1);
+                   break;
+            case 5:printf("enter the value to insert in second list: ");
+                   scanf("%d",&value2);
+                   start2=beginsert(start2,value2);
+                   break;
+            case 6:printf("before Concatenate: ");
+                   display(start1);
+                   display(start2);
+                   printf("after Concatenate: ");
+                   display(start1);
+                   break;
+            case 7:display(head);
+                   break;
+            case 8:exit(0);
+                   break;
+            default:printf("please enter value choice....");       
+        }
+    }
+    return 0;
+}
